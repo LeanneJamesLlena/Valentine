@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>For You ❤️</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Soft grain + glow background -->
+  <div class="bg"></div>
+
+  <!-- Canvas for the heart-bloom particles -->
+  <canvas id="fx" aria-hidden="true"></canvas>
+
+  <main class="wrap" role="main">
+    <section class="card" aria-label="Valentine message">
+      <div class="top">
+        <div class="badge" aria-hidden="true">♥</div>
+        <div class="title">
+          <h1 id="headline">Hei Rakas...</h1>
+          <p id="subtitle" class="subtitle-line"></p>
+        </div>
+      </div>
+
+      <div class="lines" aria-live="polite" aria-atomic="true">
+        <p class="line" id="l1"></p>
+        <p class="line" id="l2"></p>
+        <p class="line" id="l3"></p>
+      </div>
+
+      <div class="controls">
+        <button id="start" class="btn primary">Klikkaa minua ✨</button>
+      </div>
+
+      <div class="question" id="question" hidden>
+        <p class="q">Olisitko minun Valentine? 🥹👉👈 </p>
+        <div class="actions">
+          <button id="yes" class="btn primary big">Kyllä❤️ </button>
+          <button id="no" class="btn ghost big">Anna minun miettiä...</button>
+        </div>
+    
+      </div>
+
+      <div class="result" id="result" hidden>
+        <h2 id="resultTitle"></h2>
+        <p id="resultText"></p>
+        <button id="replay" class="btn ghost">Toista</button>
+      </div>
+
+      <footer class="footer">
+        <span class="tiny">Tehty rakkaudella-James</span>
+      </footer>
+    </section>
+  </main>
+
+  <!-- Romantic background music -->
+  <audio id="music" src="assets/valentineSong.m4a" preload="auto" loop></audio>
+  
+  <!-- Romantic Image Gallery -->
+  <div class="image-gallery" id="imageGallery" aria-hidden="true">
+    <div class="gallery-frame">
+      <div class="gallery-inner">
+        <div class="image-wrapper">
+          <img src="assets/valentineImages/IMG_0125.PNG" alt="Romantic memory" class="gallery-image active" />
+          <span class="image-caption">Me 💕</span>
+        </div>
+        <div class="image-wrapper">
+          <img src="assets/valentineImages/IMG_0127.PNG" alt="Romantic memory" class="gallery-image" />
+          <span class="image-caption">Lempparini</span>
+        </div>
+        <div class="image-wrapper">
+          <img src="assets/valentineImages/IMG_0128.PNG" alt="Romantic memory" class="gallery-image" />
+          <span class="image-caption">Yhdessä ✨</span>
+        </div>
+        <div class="image-wrapper">
+          <img src="assets/valentineImages/IMG_0130.PNG" alt="Romantic memory" class="gallery-image" />
+          <span class="image-caption">Sinä & Minä 💗</span>
+        </div>
+        <div class="image-wrapper">
+          <img src="assets/valentineImages/IMG_0138.PNG" alt="Romantic memory" class="gallery-image" />
+          <span class="image-caption">Yhdessä 🩷</span>
+        </div>
+        <div class="image-wrapper">
+          <img src="assets/valentineImages/IMG_0139.PNG" alt="Romantic memory" class="gallery-image" />
+          <span class="image-caption">Ihanaa aikaa 💕</span>
+        </div>
+        <div class="image-wrapper">
+          <img src="assets/valentineImages/IMG_0140.PNG" alt="Romantic memory" class="gallery-image" />
+          <span class="image-caption">Aina 💕</span>
+        </div>
+        <div class="image-wrapper">
+          <img src="assets/valentineImages/IMG_0141.JPG" alt="Romantic memory" class="gallery-image" />
+          <span class="image-caption">Rakkautta 💖</span>
+        </div>
+      </div>
+      <div class="gallery-glow"></div>
+      <div class="gallery-hearts"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
