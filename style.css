@@ -247,10 +247,21 @@
     background: rgba(0,0,0,.14);
     opacity: 0.7;
     font-size: 0.95em;
+    transition: all 0.3s ease;
   }
   .ghost:hover{
     opacity: 0.85;
     background: rgba(0,0,0,.18);
+  }
+  
+  /* Playful dodging button */
+  #no{
+    cursor: pointer;
+    will-change: transform, left, top;
+  }
+  
+  #no:hover{
+    cursor: pointer;
   }
   
   .question{

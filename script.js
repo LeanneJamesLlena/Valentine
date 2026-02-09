@@ -314,16 +314,10 @@ function startImageGallery() {
     const imageWrappers = document.querySelectorAll(".image-wrapper");
     const prevWrapper = imageWrappers[currentImageIndex];
     prevWrapper.querySelector(".gallery-image").classList.remove("active");
-    prevWrapper.querySelector(".image-caption").style.opacity = "0";
     
     currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
     const nextWrapper = imageWrappers[currentImageIndex];
     nextWrapper.querySelector(".gallery-image").classList.add("active");
-    
-    setTimeout(() => {
-      nextWrapper.querySelector(".image-caption").style.opacity = "1";
-      nextWrapper.querySelector(".image-caption").style.transform = "translateX(-50%) translateY(0)";
-    }, 1500);
     
     // Move gallery to a new random position with smooth transition
     imageGallery.style.transition = "all 1.2s cubic-bezier(0.4, 0, 0.2, 1)";
@@ -360,15 +354,6 @@ function startImageGallery() {
 
   // Show first image immediately, then cycle every 4.5 seconds for romantic pacing
   document.querySelectorAll(".image-wrapper")[0].querySelector(".gallery-image").classList.add("active");
-  
-  // Show first image caption after fade-in
-  setTimeout(() => {
-    const firstWrapper = document.querySelectorAll(".image-wrapper")[0];
-    if (firstWrapper) {
-      firstWrapper.querySelector(".image-caption").style.opacity = "1";
-      firstWrapper.querySelector(".image-caption").style.transform = "translateX(-50%) translateY(0)";
-    }
-  }, 2500);
   
   // Initial romantic burst
   setTimeout(() => {
@@ -700,24 +685,55 @@ noBtn.addEventListener("click", () => {
 });
 
 function dodgeNo() {
-  // playful dodge inside the card bounds
+  // playful dodge inside the card bounds with smooth animation
   const card = document.querySelector(".card");
   const rect = card.getBoundingClientRect();
   const btnRect = noBtn.getBoundingClientRect();
 
-  const pad = 18;
+  const pad = 20;
   const maxX = rect.left + rect.width - btnRect.width - pad;
   const maxY = rect.top + rect.height - btnRect.height - pad;
 
-  const x = rnd(rect.left + pad, maxX);
-  const y = rnd(rect.top + pad, maxY);
+  // Calculate new position (avoid current position)
+  let newX, newY;
+  let attempts = 0;
+  do {
+    newX = rnd(rect.left + pad, maxX);
+    newY = rnd(rect.top + pad, maxY);
+    attempts++;
+  } while (
+    attempts < 10 && 
+    Math.abs(newX - (btnRect.left)) < 50 && 
+    Math.abs(newY - (btnRect.top)) < 50
+  );
 
+  // Add smooth transition
+  noBtn.style.transition = "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)";
   noBtn.style.position = "fixed";
-  noBtn.style.left = x + "px";
-  noBtn.style.top  = y + "px";
+  noBtn.style.left = newX + "px";
+  noBtn.style.top = newY + "px";
+  
+  // Add playful rotation and scale
+  const rotation = rnd(-15, 15);
+  const scale = rnd(0.95, 1.05);
+  noBtn.style.transform = `rotate(${rotation}deg) scale(${scale})`;
+  
+  // Reset transform after animation
+  setTimeout(() => {
+    noBtn.style.transition = "all 0.3s ease-out";
+    noBtn.style.transform = "rotate(0deg) scale(1)";
+  }, 400);
 
-  spawnDomHeart(x + btnRect.width/2, y + btnRect.height/2);
-  burstHearts(x + btnRect.width/2, y + btnRect.height/2, 40);
+  // Spawn hearts at old and new position
+  const oldCenterX = btnRect.left + btnRect.width/2;
+  const oldCenterY = btnRect.top + btnRect.height/2;
+  spawnDomHeart(oldCenterX, oldCenterY);
+  burstHearts(oldCenterX, oldCenterY, 30);
+  
+  setTimeout(() => {
+    spawnDomHeart(newX + btnRect.width/2, newY + btnRect.height/2);
+    burstHearts(newX + btnRect.width/2, newY + btnRect.height/2, 40);
+  }, 200);
 }
 
 replayBtn.addEventListener("click", () => {
@@ -727,6 +743,8 @@ replayBtn.addEventListener("click", () => {
   noBtn.style.position = "";
   noBtn.style.left = "";
   noBtn.style.top = "";
+  noBtn.style.transform = "";
+  noBtn.style.transition = "";
   // optional: music.currentTime = 0;
 });
 
